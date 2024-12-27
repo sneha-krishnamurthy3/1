@@ -1,0 +1,50 @@
+public class NumberProperties {
+    public static void main(String[] args) {
+        int[] numbers = { 11, 16, 153, 8, 21, 121, 4, 8, 5, 0 };
+        
+        for (int num : numbers) {
+            System.out.println("Number: " + num);
+            System.out.println("Prime: " + isPrime(num, 2));
+            System.out.println("Perfect Square: " + isPerfectSquare(num, 0));
+            System.out.println("Fibonacci: " + isFibonacci(num));
+            System.out.println("Armstrong: " + isArmstrong(num, num, 0));
+            System.out.println("Palindrome: " + isPalindrome(num, 0));
+            System.out.println();
+        }
+    }
+
+    // Prime number check using recursion
+    public static boolean isPrime(int n, int divisor) {
+        if (n <= 1) return false;
+        if (divisor * divisor > n) return true;
+        if (n % divisor == 0) return false;
+        return isPrime(n, divisor + 1);
+    }
+
+    // Perfect Square check using recursion
+    public static boolean isPerfectSquare(int n, int i) {
+        if (i * i > n) return false;
+        if (i * i == n) return true;
+        return isPerfectSquare(n, i + 1);
+    }
+
+    // Fibonacci number check using recursion (check 5*n^2+4 or 5*n^2-4
+    public static boolean isFibonacci(int n) {
+        return isPerfectSquare(5 * n * n + 4, 0) || isPerfectSquare(5 * n * n - 4, 0);
+    }
+
+    // Armstrong number check using recursion
+    public static boolean isArmstrong(int n, int original, int sum) {
+        if (n == 0) return sum == original;
+        int digit = n % 10;
+        sum += Math.pow(digit, String.valueOf(original).length());
+        return isArmstrong(n / 10, original, sum);
+    }
+
+    // Palindrome check using recursion
+    public static boolean isPalindrome(int n, int reversed) {
+        if (n == 0) return n == reversed;
+        reversed = reversed * 10 + n % 10;
+        return isPalindrome(n / 10, reversed);
+    }
+}
